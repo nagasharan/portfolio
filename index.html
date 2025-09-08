@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nagasharan's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .light-theme {
+            background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+            color: #1e293b;
+        }
+        .dark-theme {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #f0f4f8;
+        }
+        .floating-nav {
+            position: fixed;
+            top: 50%;
+            left: 1rem;
+            transform: translateY(-50%);
+            z-index: 10;
+            transition: left 0.3s ease-in-out;
+        }
+        .floating-nav:hover {
+            left: 2rem;
+        }
+        .nav-item {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark-theme .nav-item {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-header {
+            position: sticky;
+            top: 0;
+            background-color: inherit;
+            z-index: 5;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background: inherit;
+            transition: transform 0.3s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .section-header:hover {
+            transform: translateX(10px);
+        }
+        .dark-theme .section-header {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-5px);
+        }
+        .light-theme .card {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .dark-theme .card {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+        @keyframes pulse-once {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .animate-pulse-once {
+            animation: pulse-once 1.5s ease-in-out;
+        }
+        .skill-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .skill-pill:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="light-theme">
+
+    <!-- Theme Toggle and Floating Nav -->
+    <div class="fixed top-4 right-4 z-20">
+        <button id="theme-toggle" class="p-2 rounded-full bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-transform transform hover:scale-110">
+            <svg id="sun-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg id="moon-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="floating-nav">
+        <nav class="flex flex-col gap-2 p-4 rounded-full nav-item shadow-xl">
+            <a href="#about" class="block p-3 rounded-full text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition duration-300">About</a>
+            <a href="#education" class="block p-3 rounded-full text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition duration-300">Education</a>
+            <a href="#experience" class="block p-3 rounded-full text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition duration-300">Experience</a>
+            <a href="#projects" class="block p-3 rounded-full text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition duration-300">Projects</a>
+            <a href="#skills" class="block p-3 rounded-full text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition duration-300">Skills</a>
+            <a href="#cover-letter-generator" class="block p-3 rounded-full text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-700 transition duration-300">Generator</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto pl-48 p-8 lg:p-12">
+        <header class="text-center my-12">
+            <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-blue-500 shadow-lg mb-4">
+                <img src="https://placehold.co/128x128/94a3b8/ffffff?text=NS" alt="Nagasharan Sathish" class="w-full h-full object-cover">
+            </div>
+            <h1 class="text-5xl font-extrabold text-blue-600 dark:text-blue-400 animate-pulse-once">Hello, I'm Nagasharan!</h1>
+            <p class="text-lg mt-2 font-light">Software Developer & Tech Enthusiast</p>
+            <div class="flex justify-center gap-6 mt-4">
+                <a href="https://linkedin.com/in/nagasharan-s/" target="_blank" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600 transition-transform transform hover:scale-125">
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.766s.784-1.75 1.75-1.75 1.75.79 1.75 1.766-.783 1.766-1.75 1.766zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.676 7 2.768v6.467z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/nagasharan" target="_blank" class="text-slate-800 hover:text-slate-600 dark:text-blue-300 dark:hover:text-blue-400 transition-transform transform hover:scale-125">
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.809 1.305 3.496.998.108-.776.417-1.305.76-1.605-2.665-.304-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.61.802.576 4.765-1.589 8.202-6.086 8.202-11.386c0-6.627-5.373-12-12-12z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- About Me Section -->
+        <section id="about" class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 pb-2 section-header border-blue-500 dark:border-blue-400">About Me</h2>
+            <div class="space-y-4">
+                <p>I'm a passionate and detail-oriented software developer with a Master of Science in Computer Science from Iowa State University. My journey has given me a strong foundation in building robust and scalable applications, with a hands-on approach to full-stack development and quality assurance.</p>
+                <p>I thrive in agile environments, translating complex requirements into well-engineered solutions. With expertise in technologies like **React Native**, **Golang**, and **Java**, and a solid understanding of cloud platforms like **AWS** and **Google Cloud Platform**, I'm always ready to tackle new challenges and bring innovative ideas to life.</p>
+            </div>
+        </section>
+        
+        <!-- Education Section -->
+        <section id="education" class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 pb-2 section-header border-blue-500 dark:border-blue-400">Education</h2>
+            <div class="space-y-6">
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-semibold">Iowa State University</h3>
+                    <p class="text-lg">Master of Science in Computer Science</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Ames, IA | Aug. 2023 - Dec. 2025</p>
+                </div>
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-semibold">National Institute of Engineering</h3>
+                    <p class="text-lg">Bachelor of Engineering in Mechanical Engineering</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Mysuru, KA | Aug. 2013 - May. 2017</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 pb-2 section-header border-blue-500 dark:border-blue-400">Experience</h2>
+            <div class="space-y-8">
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-semibold">Research Assistant</h3>
+                    <p class="text-lg font-medium text-blue-600 dark:text-blue-400">Iowa State University | Software Developer</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Ames, IA | Feb 2024 - May 2025</p>
+                    <ul class="list-disc list-inside mt-4 space-y-2">
+                        <li>Developed cross-platform mobile and web applications with **React Native** for hand image capture.</li>
+                        <li>Designed a scalable backend with **Golang** and **GraphQL** for flexible data retrieval.</li>
+                        <li>Engineered a secure **PostgreSQL** database to ensure data integrity and scalability.</li>
+                    </ul>
+                </div>
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-semibold">Senior QA Analyst</h3>
+                    <p class="text-lg font-medium text-blue-600 dark:text-blue-400">IQVIA</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Bengaluru, KA | Dec 2022 - July 2023</p>
+                    <ul class="list-disc list-inside mt-4 space-y-2">
+                        <li>Built **Java**-based framework components using **Selenium** and **TestNG** for workflow validation.</li>
+                        <li>Integrated testing framework into **Jenkins CI/CD** pipelines, accelerating build processes by 40%.</li>
+                    </ul>
+                </div>
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-semibold">System Engineer</h3>
+                    <p class="text-lg font-medium text-blue-600 dark:text-blue-400">Tata Consultancy Services</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Bengaluru, KA | Oct 2017 - Dec 2022</p>
+                    <ul class="list-disc list-inside mt-4 space-y-2">
+                        <li>Automated 80% of workflows with **Python** and **Java** for data validation.</li>
+                        <li>Reduced manual validation efforts by 70% with automated scripts for **REST/SOAP API** integration.</li>
+                        <li>Implemented **Docker** for scalable CI/CD workflows, improving speed by 50%.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 pb-2 section-header border-blue-500 dark:border-blue-400">Projects</h2>
+            <div class="space-y-8">
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-2xl font-semibold">RescueNet</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Jan 2025 - May 2025</p>
+                    <ul class="list-disc list-inside mt-4 space-y-2">
+                        <li>Implemented and benchmarked multiple semantic segmentation models for post-disaster damage assessment on UAV imagery.</li>
+                        <li>Optimized training with GPU acceleration and hyperparameter tuning.</li>
+                        <li>Achieved high accuracy and pixel precision with the Segmenter model.</li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="https://github.com/nagasharan/RescueNet" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300">
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section id="skills" class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 pb-2 section-header border-blue-500 dark:border-blue-400">Technical Skills</h2>
+            <div class="space-y-6">
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">Languages</h4>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="skill-pill bg-sky-200 text-sky-800 dark:bg-sky-800 dark:text-sky-200">Python</span>
+                        <span class="skill-pill bg-sky-200 text-sky-800 dark:bg-sky-800 dark:text-sky-200">Java</span>
+                        <span class="skill-pill bg-sky-200 text-sky-800 dark:bg-sky-800 dark:text-sky-200">Golang</span>
+                        <span class="skill-pill bg-sky-200 text-sky-800 dark:bg-sky-800 dark:text-sky-200">C/C++</span>
+                        <span class="skill-pill bg-sky-200 text-sky-800 dark:bg-sky-800 dark:text-sky-200">R</span>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">Web & Frameworks</h4>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="skill-pill bg-teal-200 text-teal-800 dark:bg-teal-800 dark:text-teal-200">Spring Boot</span>
+                        <span class="skill-pill bg-teal-200 text-teal-800 dark:bg-teal-800 dark:text-teal-200">Django</span>
+                        <span class="skill-pill bg-teal-200 text-teal-800 dark:bg-teal-800 dark:text-teal-200">React, React Native</span>
+                        <span class="skill-pill bg-teal-200 text-teal-800 dark:bg-teal-800 dark:text-teal-200">GraphQL</span>
+                        <span class="skill-pill bg-teal-200 text-teal-800 dark:bg-teal-800 dark:text-teal-200">Selenium WebDriver</span>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">Cloud & DevOps</h4>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="skill-pill bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200">AWS</span>
+                        <span class="skill-pill bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200">GCP</span>
+                        <span class="skill-pill bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200">Kubernetes</span>
+                        <span class="skill-pill bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200">Docker</span>
+                        <span class="skill-pill bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200">Jenkins</span>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">Data & Analytics</h4>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="skill-pill bg-orange-200 text-orange-800 dark:bg-orange-800 dark:text-orange-200">SQL</span>
+                        <span class="skill-pill bg-orange-200 text-orange-800 dark:bg-orange-800 dark:text-orange-200">PostgreSQL</span>
+                        <span class="skill-pill bg-orange-200 text-orange-800 dark:bg-orange-800 dark:text-orange-200">MongoDB</span>
+                        <span class="skill-pill bg-orange-200 text-orange-800 dark:bg-orange-800 dark:text-orange-200">pandas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cover Letter Generator Section -->
+        <section id="cover-letter-generator" class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 pb-2 section-header border-blue-500 dark:border-blue-400">✨ Cover Letter Generator ✨</h2>
+            <div class="card p-6 rounded-xl shadow-lg space-y-4">
+                <p>Generate a personalized cover letter by providing a job title and company name. Your experience will be automatically used to tailor the letter!</p>
+                <div>
+                    <label for="job-title" class="block text-sm font-medium">Job Title:</label>
+                    <input type="text" id="job-title" placeholder="e.g., Senior Software Engineer" class="w-full mt-1 p-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-white focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="company-name" class="block text-sm font-medium">Company Name:</label>
+                    <input type="text" id="company-name" placeholder="e.g., Google" class="w-full mt-1 p-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-white focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button id="generate-button" class="w-full py-2 px-4 rounded-md text-white font-bold bg-blue-500 hover:bg-blue-600 transition-colors duration-300">
+                    Generate Cover Letter
+                </button>
+                <div id="loading-indicator" class="hidden text-center text-blue-500">
+                    <svg class="animate-spin h-5 w-5 mr-3 inline" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                </div>
+                <textarea id="cover-letter-output" rows="15" readonly class="hidden w-full mt-4 p-4 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-white"></textarea>
+                <button id="copy-button" class="hidden w-full py-2 px-4 rounded-md text-white font-bold bg-gray-500 hover:bg-gray-600 transition-colors duration-300 mt-2">
+                    Copy to Clipboard
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+
+            themeToggle.addEventListener('click', () => {
+                if (body.classList.contains('light-theme')) {
+                    body.classList.remove('light-theme');
+                    body.classList.add('dark-theme');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                } else {
+                    body.classList.remove('dark-theme');
+                    body.classList.add('light-theme');
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                }
+            });
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Gemini API Integration - Cover Letter Generator
+            const generateButton = document.getElementById('generate-button');
+            const jobTitleInput = document.getElementById('job-title');
+            const companyNameInput = document.getElementById('company-name');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const outputArea = document.getElementById('cover-letter-output');
+            const copyButton = document.getElementById('copy-button');
+
+            generateButton.addEventListener('click', async () => {
+                const jobTitle = jobTitleInput.value.trim();
+                const companyName = companyNameInput.value.trim();
+
+                if (!jobTitle || !companyName) {
+                    outputArea.value = "Please enter both a job title and a company name.";
+                    outputArea.classList.remove('hidden');
+                    return;
+                }
+
+                // Gather resume content from the page
+                const resumeContent = `
+                    Education:
+                    - Master of Science in Computer Science, Iowa State University (Aug. 2023 - Dec. 2025)
+                    - Bachelor of Engineering in Mechanical Engineering, National Institute of Engineering (Aug. 2013 - May. 2017)
+                    
+                    Experience:
+                    - Research Assistant (Software Developer), Iowa State University (Feb 2024 - May 2025)
+                      - Built cross-platform mobile and web applications (React Native, Expo) for 2D hand image capture.
+                      - Designed scalable query option with Golang and GraphQL.
+                      - Engineered a secure PostgreSQL backend for large-scale image datasets.
+                    - Senior QA Analyst, IQVIA (Dec 2022 - July 2023)
+                      - Built Java-based framework components using Selenium and TestNG.
+                      - Reduced framework and code defects by 30%.
+                      - Integrated testing framework into Jenkins CI/CD pipelines.
+                    - System Engineer, Tata Consultancy Services (Oct 2017 - Dec 2022)
+                      - Automated 80% of workflows using Python and Java.
+                      - Developed automated scripts for REST/SOAP API integration.
+                      - Implemented Docker-based execution environments for CI/CD workflows.
+                    
+                    Skills:
+                    - Languages: Python, Java, Golang, C/C++, R
+                    - Web & Frameworks: Spring Boot, Django, React, React Native, REST APIs, GraphQL, Selenium, TestNG
+                    - Cloud & DevOps: AWS, Google Cloud Platform, Kubernetes, Docker, Jenkins, Git
+                `;
+                
+                outputArea.classList.add('hidden');
+                copyButton.classList.add('hidden');
+                loadingIndicator.classList.remove('hidden');
+
+                const userPrompt = `
+                    Act as a professional software developer with the following resume content.
+                    Based on my experience, write a concise, one-paragraph cover letter for the job title "${jobTitle}" at the company "${companyName}".
+                    Focus on highlighting my most relevant skills and experience for this role. Do not include a salutation or closing.
+
+                    My resume content is:
+                    ${resumeContent}
+                `;
+                
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                    tools: [{ "google_search": {} }],
+                    systemInstruction: {
+                        parts: [{ text: "You are a helpful assistant that generates professional cover letters based on user-provided details and resume content." }]
+                    },
+                };
+
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const generatedText = candidate.content.parts[0].text;
+                        outputArea.value = generatedText;
+                        outputArea.classList.remove('hidden');
+                        copyButton.classList.remove('hidden');
+                    } else {
+                        outputArea.value = "Failed to generate cover letter. Please try again.";
+                        outputArea.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error("Error generating cover letter:", error);
+                    outputArea.value = "An error occurred. Please check your network connection and try again.";
+                    outputArea.classList.remove('hidden');
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                }
+            });
+
+            copyButton.addEventListener('click', () => {
+                outputArea.select();
+                outputArea.setSelectionRange(0, 99999); // For mobile devices
+                document.execCommand('copy');
+                copyButton.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyButton.textContent = 'Copy to Clipboard';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
