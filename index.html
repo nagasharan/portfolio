@@ -269,35 +269,7 @@
             </div>
         </section>
 
-        <!-- Cover Letter Generator Section -->
-        <section id="cover-letter-generator" class="mb-12">
-            <h2 class="text-3xl font-semibold border-b-2 pb-2 section-header border-blue-500 dark:border-blue-400">✨ Cover Letter Generator ✨</h2>
-            <div class="card p-6 rounded-xl shadow-lg space-y-4">
-                <p>Generate a personalized cover letter by providing a job title and company name. Your experience will be automatically used to tailor the letter!</p>
-                <div>
-                    <label for="job-title" class="block text-sm font-medium">Job Title:</label>
-                    <input type="text" id="job-title" placeholder="e.g., Senior Software Engineer" class="w-full mt-1 p-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-white focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div>
-                    <label for="company-name" class="block text-sm font-medium">Company Name:</label>
-                    <input type="text" id="company-name" placeholder="e.g., Google" class="w-full mt-1 p-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-white focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <button id="generate-button" class="w-full py-2 px-4 rounded-md text-white font-bold bg-blue-500 hover:bg-blue-600 transition-colors duration-300">
-                    Generate Cover Letter
-                </button>
-                <div id="loading-indicator" class="hidden text-center text-blue-500">
-                    <svg class="animate-spin h-5 w-5 mr-3 inline" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Generating...
-                </div>
-                <textarea id="cover-letter-output" rows="15" readonly class="hidden w-full mt-4 p-4 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-white"></textarea>
-                <button id="copy-button" class="hidden w-full py-2 px-4 rounded-md text-white font-bold bg-gray-500 hover:bg-gray-600 transition-colors duration-300 mt-2">
-                    Copy to Clipboard
-                </button>
-            </div>
-        </section>
+        
 
     </main>
 
@@ -336,23 +308,7 @@
                 });
             });
 
-            // Gemini API Integration - Cover Letter Generator
-            const generateButton = document.getElementById('generate-button');
-            const jobTitleInput = document.getElementById('job-title');
-            const companyNameInput = document.getElementById('company-name');
-            const loadingIndicator = document.getElementById('loading-indicator');
-            const outputArea = document.getElementById('cover-letter-output');
-            const copyButton = document.getElementById('copy-button');
-
-            generateButton.addEventListener('click', async () => {
-                const jobTitle = jobTitleInput.value.trim();
-                const companyName = companyNameInput.value.trim();
-
-                if (!jobTitle || !companyName) {
-                    outputArea.value = "Please enter both a job title and a company name.";
-                    outputArea.classList.remove('hidden');
-                    return;
-                }
+            
 
                 // Gather resume content from the page
                 const resumeContent = `
